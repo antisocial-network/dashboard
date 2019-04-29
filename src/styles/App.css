@@ -1,0 +1,175 @@
+:root {
+  padding: 70px 0;
+}
+
+.App-header {
+  line-height: 1;
+  padding: 0 20px;
+}
+
+.App-header, .App-row {
+  display: flex;
+}
+
+.App-row {
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+  justify-items: stretch;
+}
+
+.App-block {
+  width: 100%;
+}
+
+.App-hidden-sm,
+.App-hidden-md {
+  position: fixed;
+  left: 200vw;
+}
+
+.App-block {
+  padding: 20px 15px 0 20px;
+}
+
+.App-block-unpadded {
+  padding: 0;
+}
+
+.App-header .App-card .App-card-line {
+  display: flex;
+}
+
+.App-header .App-logo {
+  height: 4rem;
+  margin: 0.1rem 0.7rem 0 -10px;
+}
+
+.App-header .App-value {
+  font-size: 4rem;
+  margin: 0 1.6rem 0 -0.2rem;
+}
+
+.App-header .App-stock {
+  font-weight: 300;
+  font-size: 4rem;
+  margin: 0;
+}
+
+.App-neg .App-header .App-logo {
+  filter: hue-rotate(180deg)
+}
+
+.App-header .App-change {
+  color: silver;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.App-header .App-card.App-card-right {
+  width: 100%;
+  text-align: right;
+}
+
+.App-header .App-card.App-card-right .App-card-line {
+  justify-content: flex-end;
+}
+
+.App-header h2 {
+  font-size: 2rem;
+  margin: 0.4rem 0 0 0;
+}
+
+.App-header h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0.4rem 1rem 0 0;
+  color: grey;
+}
+
+.App-header .App-date {
+  vertical-align: super;
+  margin-right: 1.4rem;
+}
+
+.App-header .App-handle {
+  color: silver;
+}
+
+.App-media {
+  border-radius: 0.75rem;
+  background: white;
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.15), 0 0.1rem 0.15rem rgba(0,0,0,.05);
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.App-media-invisible {
+  box-shadow: unset;
+  padding: unset;
+}
+
+.App-tag {
+  background: gray;
+  color: white;
+  font-weight: bolder;
+  padding: 0.375rem 0.5rem;
+  border-radius: 0.25rem;
+  margin-right: 0.375rem;
+}
+
+.App-tag.App-pos {
+  background: mediumseagreen;
+}
+
+.App-tag.App-neg {
+  background: salmon;
+}
+
+figure {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+}
+
+caption {
+  font-size: 0.9rem;
+  display: block;
+  text-align: inherit;
+  color: grey;
+}
+
+@media screen and (min-width: 39rem) {
+  .App-hidden-sm {
+    position: unset;
+    left: unset;
+  }
+}
+
+@media screen and (min-width: 59rem) {
+  .App-nopad-md {
+    margin: unset;
+  }
+  .App-hidden-md {
+    position: unset;
+    left: unset;
+  }
+  
+  .App-block-wider {
+    width: 60%;
+  }
+  .App-block-narrower {
+    width: 40%;
+  }
+
+  :root {
+    padding: 70px 0;
+  }
+
+  .App-header {
+    padding: 0 70px;
+  }
+
+  .App-row {
+    padding: 0 50px;
+  }
+}
