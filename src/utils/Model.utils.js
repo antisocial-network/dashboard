@@ -1,26 +1,23 @@
 /* global fetch */
+import { timeFormat } from 'd3-time-format'
 
-import { tsvParse } from 'd3-dsv'
-import { timeParse } from 'd3-time-format'
+const parseData = timeline => async d => ({
+  ...d,
+  timeline: (timeline && d.timeline.map((x, i, a) => ({
+    date: new Date(x.date),
+    open: (i ? a[i - 1] : x).average * 50 + 50,
+    close: x.average * 50 + 50,
+    high: Math.max((i ? a[i - 1] : x).average * 50 + 50, x.average * 50 + 50) + 1,
+    low: Math.min((i ? a[i - 1] : x).average * 50 + 50, x.average * 50 + 50) - 1,
+    volume: x.count
+  }))) || null
+})
 
-function parseData (parse) {
-  return function (d) {
-    d.date = parse(d.date)
-    d.open = +d.open
-    d.high = +d.high
-    d.low = +d.low
-    d.close = +d.close
-    d.volume = +d.volume
+export function fetchData (ticker = 'Apple', timeline = true, dateTo, dateFrom = '20010101') {
+  if (dateTo === undefined) dateTo = timeFormat('%Y%b%d')(new Date())
 
-    return d
-  }
-}
-
-const parseDate = timeParse('%Y-%m-%d')
-
-export function fetchData () {
-  const promiseMSFT = fetch('https://cdn.rawgit.com/rrag/react-stockcharts/master/docs/data/MSFT.tsv')
-    .then(response => response.text())
-    .then(data => tsvParse(data, parseData(parseDate)))
-  return promiseMSFT
+  const promiseData = fetch(`https://41kjsazhy7.execute-api.eu-west-2.amazonaws.com/default/BrandTimeline?ticker=%40${ticker}&min_time=${dateFrom}&max_time=${dateTo}`)
+    .then(response => response.json())
+    .then(parseData(timeline))
+  return promiseData
 }

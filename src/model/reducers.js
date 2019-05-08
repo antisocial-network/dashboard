@@ -9,7 +9,10 @@ import {
 const initialState = {
   state: null,
   err: null,
-  data: null
+  data: null,
+  local: {
+    selectedDate: null
+  }
 }
 
 // IMPORTANT: immer allows us to mutate the state
@@ -19,16 +22,17 @@ const rootReducer = createReducer(initialState, {
   [loadDataStart.type]: s => {
     s.state = loadDataStart.type
   },
-  [loadDataOK.type]: (s, { payload }) => {
+  [loadDataOK.type]: (s, { payload: { timeline, ...other }, payload }) => {
     s.state = loadDataOK.type
-    s.data = payload
+    if (timeline === null) s.data = other
+    else s.data = payload
   },
   [loadDataErr.type]: (s, { payload }) => {
     s.state = loadDataErr.type
     s.err = payload
   },
   [dateSelect.type]: (s, { payload }) => {
-    s.selectedDate = payload
+    s.local.selectedDate = payload
   }
 })
 

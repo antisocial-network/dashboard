@@ -114,7 +114,7 @@ class CandlestickChart extends React.Component {
               stroke: 'black',
               opacity: 0.4
             }}
-            when={d => this.props.selectedDate && d.date.toString() === this.props.selectedDate.date.toString()} />
+            when={d => (this.props.local || {}).selectedDate && d.date.toString() === this.props.local.selectedDate.date.toString()} />
           <Annotate with={LabelAnnotation}
             usingProps={{
               text: d => timeFormat('%-d %b')(d.date),
@@ -122,7 +122,7 @@ class CandlestickChart extends React.Component {
               fontFamily,
               y: 450
             }}
-            when={d => this.props.selectedDate && d.date.toString() === this.props.selectedDate.date.toString()} />
+            when={d => (this.props.local || {}).selectedDate && d.date.toString() === this.props.local.selectedDate.date.toString()} />
           <YAxis axisAt='right' orient='right' ticks={5}
             fontFamily={fontFamily} />
           <MouseCoordinateY
@@ -239,7 +239,7 @@ CandlestickChart.defaultProps = {
 const CandleStickChartWithInteractiveIndicator = fitWidth(CandlestickChart)
 
 export default connect(
-  s => s,
+  s => ({}),
   d => bindActionCreators({
     dateSelect
   }, d)
