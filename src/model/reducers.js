@@ -3,7 +3,8 @@ import {
   loadDataStart,
   loadDataOK,
   loadDataErr,
-  dateSelect
+  dateSelect,
+  setHandle
 } from './actions'
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
   err: null,
   data: null,
   local: {
-    selectedDate: null
+    selectedDate: null,
+    handle: null
   }
 }
 
@@ -24,12 +26,15 @@ const rootReducer = createReducer(initialState, {
   },
   [loadDataOK.type]: (s, { payload: { timeline, ...other }, payload }) => {
     s.state = loadDataOK.type
-    if (timeline === null) s.data = other
+    if (timeline === null) s.data = { timeline: s.data.timeline, ...other }
     else s.data = payload
   },
   [loadDataErr.type]: (s, { payload }) => {
     s.state = loadDataErr.type
     s.err = payload
+  },
+  [setHandle.type]: (s, { payload }) => {
+    s.local.handle = payload
   },
   [dateSelect.type]: (s, { payload }) => {
     s.local.selectedDate = payload

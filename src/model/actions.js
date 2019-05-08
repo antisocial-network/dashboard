@@ -11,4 +11,6 @@ export const loadData = (...args) => dispatch => {
     .catch(e => dispatch(loadDataErr(e)))
 }
 
+export const setHandle = createAction('setHandle')
+
 export const dateSelect = createAction('dateSelect')

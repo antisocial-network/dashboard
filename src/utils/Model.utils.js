@@ -13,7 +13,7 @@ const parseData = timeline => async d => ({
   }))) || null
 })
 
-export function fetchData (ticker = 'Apple', timeline = true, dateTo, dateFrom = '20010101') {
+export function fetchData (ticker, timeline = true, dateTo, dateFrom = '20010101') {
   if (dateTo === undefined) dateTo = timeFormat('%Y%b%d')(new Date())
 
   const promiseData = fetch(`https://41kjsazhy7.execute-api.eu-west-2.amazonaws.com/default/BrandTimeline?ticker=%40${ticker}&min_time=${dateFrom}&max_time=${dateTo}`)

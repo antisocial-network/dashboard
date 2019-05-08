@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { dateSelect } from '../model/actions'
+import { dateSelect, loadData } from '../model/actions'
 
 import { format } from 'd3-format'
 import { timeFormat } from 'd3-time-format'
@@ -241,6 +241,7 @@ const CandleStickChartWithInteractiveIndicator = fitWidth(CandlestickChart)
 export default connect(
   s => ({}),
   d => bindActionCreators({
-    dateSelect
+    dateSelect,
+    loadData
   }, d)
 )(CandleStickChartWithInteractiveIndicator)
