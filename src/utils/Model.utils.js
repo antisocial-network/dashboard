@@ -7,8 +7,8 @@ const parseData = timeline => async d => ({
     date: new Date(x.date),
     open: (i ? a[i - 1] : x).average * 50 + 50,
     close: x.average * 50 + 50,
-    high: Math.max((i ? a[i - 1] : x).average * 50 + 50, x.average * 50 + 50) + 1,
-    low: Math.min((i ? a[i - 1] : x).average * 50 + 50, x.average * 50 + 50) - 1,
+    high: Math.min(100, Math.max((i ? a[i - 1] : x).average * 50 + 50, x.average * 50 + 50) + x.stdev * 50),
+    low: Math.max(0, Math.min((i ? a[i - 1] : x).average * 50 + 50, x.average * 50 + 50) - x.stdev * 50),
     volume: x.count
   }))) || null
 })

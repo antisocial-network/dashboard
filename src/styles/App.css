@@ -2,6 +2,10 @@
   padding: 70px 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 .App-header {
   line-height: 1;
   padding: 0 20px;
