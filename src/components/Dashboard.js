@@ -92,7 +92,7 @@ function Dashboard (props) {
                     <span className='App-caption-author'>{x.user.name}</span>&ensp;&middot;&ensp;
                     <span className='App-caption-username'>@{x.user.screen_name}</span>&ensp;&middot;&ensp;
                     <span className='App-caption-date'>{ timeFormat('%H:%m')(x.timestamp) }</span>&ensp;&middot;&ensp;
-            ➰ <span className='App-caption-retweets'>{x.retweet_count}</span>
+                    {x.sentiment >= 0 ? '🔼' : '🔽'} <span className='App-caption-retweets'>{(x.sentiment * 50 + 50).toFixed(1)}</span>
                   </figcaption>
                 </figure>
               </a>
