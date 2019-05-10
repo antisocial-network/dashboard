@@ -66,7 +66,7 @@ function Dashboard (props) {
           </div>
         </section>)) || (
         <section className='App-row'>
-          <div className='App-block App-block-wider App-pinned App-nopad-md App-hidden-sm'>
+          <div className='App-block App-block-wider App-pinned App-nopad-md'>
             { props.data && props.data.timeline
               ? (<Chart type='hybrid' data={props.data.timeline} />)
               : 'Loading...'
