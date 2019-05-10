@@ -1,0 +1,2 @@
+/api/*  https://41kjsazhy7.execute-api.eu-west-2.amazonaws.com/default/BrandTimeline/:splat  200
+/*  /index.html  200
