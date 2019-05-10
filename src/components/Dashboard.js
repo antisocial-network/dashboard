@@ -24,7 +24,7 @@ function Dashboard (props) {
 
   useEffect(() => {
     (props.local.selectedDate || {}).date && props.loadData(props.local.handle, false, props.local.selectedDate.date, new Date(props.local.selectedDate.date - 86400000))
-  }, [(props.local.selectedDate || {}).date])
+  }, [props.local.selectedDate && props.local.selectedDate.date])
 
   return (
     <div className={`App ${diff > 0 ? 'App-pos' : 'App-neg'}`}>
@@ -59,15 +59,21 @@ function Dashboard (props) {
           </div>) }
         </div>
       </header>
-      <section className='App-row'>
-        <div className='App-block App-block-wider App-pinned App-nopad-md App-hidden-sm'>
-          { props.data && props.data.timeline
-            ? (<Chart type='hybrid' data={props.data.timeline} />)
-            : 'Loading...'
-          }
-        </div>
-        <div className='App-block App-block-narrower'>
-          {/* <h3>Top Tags</h3>
+      { ((props.err || (props.data && (props.data.timeline || []).length === 0)) && (
+        <section className='App-row'>
+          <div className='App-block'>
+            <h2>Unknown handle or other error.</h2>
+          </div>
+        </section>)) || (
+        <section className='App-row'>
+          <div className='App-block App-block-wider App-pinned App-nopad-md App-hidden-sm'>
+            { props.data && props.data.timeline
+              ? (<Chart type='hybrid' data={props.data.timeline} />)
+              : 'Loading...'
+            }
+          </div>
+          <div className='App-block App-block-narrower'>
+            {/* <h3>Top Tags</h3>
       <div className='App-media App-media-invisible'>
         <span className='App-tag App-pos'>xbox</span>
         <span className='App-tag App-neg'>windows</span>
@@ -77,36 +83,37 @@ function Dashboard (props) {
       </div>
       <br /> */}
 
-          <h3>Top Tweets</h3>
-          {(props.data || {}).tweets && props.data.tweets.slice(0, 3).map(x => (
-            <a key={x.id} href={`https://twitter.com/${encodeURIComponent(x.user.screen_name)}/status/${x.id_str}`} rel='noreferrer' target='_blank'>
-              <figure className='App-media'>
-                <span className='App-media-text'>{(x.extended_tweet || {}).full_text || x.text}</span>
-                <figcaption>
-                  <span className='App-caption-author'>{x.user.name}</span>&ensp;&middot;&ensp;
-                  <span className='App-caption-username'>@{x.user.screen_name}</span>&ensp;&middot;&ensp;
-                  <span className='App-caption-date'>{ timeFormat('%H:%m')(x.timestamp) }</span>&ensp;&middot;&ensp;
+            <h3>Top Tweets</h3>
+            {(props.data || {}).tweets && props.data.tweets.slice(0, 3).map(x => (
+              <a key={x.id} href={`https://twitter.com/${encodeURIComponent(x.user.screen_name)}/status/${x.id_str}`} rel='noopener noreferrer' target='_blank'>
+                <figure className='App-media'>
+                  <span className='App-media-text'>{(x.extended_tweet || {}).full_text || x.text}</span>
+                  <figcaption>
+                    <span className='App-caption-author'>{x.user.name}</span>&ensp;&middot;&ensp;
+                    <span className='App-caption-username'>@{x.user.screen_name}</span>&ensp;&middot;&ensp;
+                    <span className='App-caption-date'>{ timeFormat('%H:%m')(x.timestamp) }</span>&ensp;&middot;&ensp;
             ➰ <span className='App-caption-retweets'>{x.retweet_count}</span>
-                </figcaption>
-              </figure>
-            </a>
-          ))}
+                  </figcaption>
+                </figure>
+              </a>
+            ))}
 
-          <br />
-          <h3>News Stories</h3>
-          {(props.data || {}).news && props.data.news.slice(0, 3).map(x => (
-            <a key={x.url} href={x.url} target='_blank' rel='noreferrer'>
-              <figure className='App-media'>
-                {x.title}
-                <figcaption>
-                  {x.description} <br />
-                  <span className='App-caption-author'>{x.author}</span>&ensp;&middot;&ensp;
-                  <span className='App-caption-publication'>{x.source.name}</span>
-                </figcaption>
-              </figure>
-            </a>))}
-        </div>
-      </section>
+            <br />
+            <h3>News Stories</h3>
+            {(props.data || {}).news && props.data.news.slice(0, 3).map(x => (
+              <a key={x.url} href={x.url} target='_blank' rel='noopener noreferrer'>
+                <figure className='App-media'>
+                  {x.title}
+                  <figcaption>
+                    {x.description} <br />
+                    <span className='App-caption-author'>{x.author}</span>&ensp;&middot;&ensp;
+                    <span className='App-caption-publication'>{x.source.name}</span>
+                  </figcaption>
+                </figure>
+              </a>))}
+          </div>
+        </section>
+      )}
     </div>)
 }
 
